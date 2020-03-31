@@ -11,15 +11,11 @@
 |
 */
 
-use App\Category;
-use App\Product;
+
 
 Route::get('/', function () {
-    // $prod = Product::find(5)->category;
-    // return $prod;
-    $cat = Category::find(2)->Products;
-    return $cat;
-    // return view('welcome');
+    
+    return view('tienda.index');
 });
 
 Auth::routes();
