@@ -49491,6 +49491,75 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/apicategory.js":
+/*!*************************************!*\
+  !*** ./resources/js/apicategory.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var apicategory = new Vue({
+  el: '#api',
+  data: {
+    nombre: 'Jackson',
+    slug: '',
+    mensajeSlug: 'Slug Existe',
+    classSlug: 'alert alert-danger',
+    aparecerSlug: false,
+    descripcion: 'holaaaa',
+    btnGuardar: false
+  },
+  computed: {
+    generarSlug: function generarSlug() {
+      var _char = {
+        "á": "a",
+        "é": "e",
+        "í": "i",
+        "ó": "o",
+        "ú": "u",
+        "Á": "A",
+        "É": "E",
+        "Í": "I",
+        "Ó": "O",
+        "Ú": "U",
+        "ñ": "n",
+        "Ñ": "N",
+        " ": "-",
+        "_": "-"
+      };
+      var expr = /[áéíóúÁÉÍÓÚÑñ_ ]/g;
+      this.slug = this.nombre.trim().replace(expr, function (e) {
+        return _char[e];
+      }).toLowerCase(); //    return this.nombre.trim().replace(/ /g, '-') ;
+
+      return this.slug;
+    }
+  },
+  methods: {
+    getCategory: function getCategory() {
+      var _this = this;
+
+      var url = '/api/category/' + this.slug;
+      axios.get(url).then(function (response) {
+        _this.mensajeSlug = response.data;
+        console.log(_this.mensajeSlug);
+
+        if (_this.mensajeSlug == 'Slug disponible') {
+          _this.classSlug = 'alert alert-success';
+          _this.btnGuardar = false;
+        } else {
+          _this.classSlug = 'alert alert-danger';
+          _this.btnGuardar = true;
+        }
+
+        _this.aparecerSlug = true;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -49522,6 +49591,8 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+
+__webpack_require__(/*! ./apicategory */ "./resources/js/apicategory.js");
 
 var app = new Vue({
   el: '#app'

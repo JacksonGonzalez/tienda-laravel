@@ -40,3 +40,5 @@ mix.scripts([
    'public/asset/js/custom.js',
 ], 'public/js/all.js');
 
+mix.scripts( 'resources/js/apicategory.js', 'public/js/admin.js');
+
